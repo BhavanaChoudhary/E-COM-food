@@ -9,8 +9,25 @@ const createToken = (id) => {
 };
 
 // LOGIN USER
+const ADMIN_EMAIL = "admin@example.com";
+const ADMIN_PASSWORD = "admin123";
+
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
+
+    // Check for constant admin credentials
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        // Create a dummy admin user id for token
+        const adminUserId = "000000000000000000000000";
+        const token = createToken(adminUserId);
+        return res.status(200).json({
+            success: true,
+            token,
+            userId: adminUserId,
+            message: "Admin login successful!"
+        });
+    }
+
     try {
         const user = await userModel.findOne({ email });
         if (!user) {
@@ -20,6 +37,11 @@ const loginUser = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ success: false, message: "Invalid credentials" });
+        }
+
+        // Check if user is admin for admin login
+        if (!user.isAdmin) {
+            return res.status(403).json({ success: false, message: "Access denied. Not an admin user." });
         }
 
         const token = createToken(user._id);
