@@ -66,9 +66,18 @@ const getOrdersWithUserInfo = async (req, res) => {
 };
 
 const updateOrderStatus = async (req, res) => {
-    // Removed admin authorization check to allow status update without auth
-
     try {
+        const adminUserId = "000000000000000000000000";
+        const userId = req.userId;
+
+        // Check if user is admin by dummy adminUserId or by isAdmin flag in DB
+        if (userId !== adminUserId) {
+            const user = await userModel.findById(userId);
+            if (!user || !user.isAdmin) {
+                return res.status(403).json({ success: false, message: 'Access denied. Admins only.' });
+            }
+        }
+
         const orderId = req.params.id;
         const { status } = req.body;
 
