@@ -14,12 +14,7 @@ const Orders = () => {
 
   const fetchOrders = async () => {
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get(`${baseUrl}/api/orders/orders`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(`${baseUrl}/api/orders/orders`);
       if (response.data.success) {
         setOrders(response.data.orders);
       } else {
@@ -45,7 +40,6 @@ const Orders = () => {
 
   const updateOrderStatus = async (orderId, status) => {
     try {
-      const token = localStorage.getItem('token');
       const response = await axios.patch(
         `${baseUrl}/api/orders/order/${orderId}/status`,
         { status }
@@ -96,7 +90,7 @@ const Orders = () => {
 
   if (error) {
     return (
-      <div className="admin-orders-error">.
+      <div className="admin-orders-error">
         <p>{error}</p>
         <button onClick={fetchOrders}>Try Again</button>
       </div>
@@ -106,7 +100,7 @@ const Orders = () => {
   return (
     <div className="admin-orders-container">
       <h1>Manage Orders</h1>
-      
+
       <div className="admin-orders-filters">
         {['all', 'pending', 'processing', 'delivered', 'cancelled'].map(status => (
           <button
