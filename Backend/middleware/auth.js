@@ -13,8 +13,7 @@ const adminToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MDkyOTYwNmY
 
 // Hardcoded check only during development or testing
 if (token === adminToken) {
-  req.userId = 'admin';
-  req.userRole = 'admin';
+  
   return next();
 }
   try {
