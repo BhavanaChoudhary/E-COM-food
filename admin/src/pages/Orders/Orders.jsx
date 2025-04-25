@@ -50,7 +50,7 @@ const Orders = () => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.patch(
-        `${url}/api/orders/order/${orderId}/status`,
+        `https://e-com-foodbackend.onrender.com/api/orders/order/${orderId}/status`,
         { status },
         {
           headers: {
