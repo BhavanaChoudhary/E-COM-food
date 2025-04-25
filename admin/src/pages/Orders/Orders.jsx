@@ -48,12 +48,7 @@ const Orders = () => {
       const token = localStorage.getItem('token');
       const response = await axios.patch(
         `${baseUrl}/api/orders/order/${orderId}/status`,
-        { status },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        { status }
       );
       if (response.data.success) {
         toast.success(`Order marked as ${status}`);
