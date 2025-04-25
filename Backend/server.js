@@ -27,7 +27,7 @@ app.use(cors({
   },
   credentials: true
 }));
-
+app.use(cors(corsOptions));
 
 //api endpoints 
 app.use("/api/food",foodRouter)
