@@ -66,13 +66,21 @@ const getOrdersWithUserInfo = async (req, res) => {
 };
 
 const updateOrderStatus = async (req, res) => {
+    // 🔐 Only allow admins to update order status
+    if (req.userRole !== 'admin') {
+        return res.status(403).json({ success: false, message: 'Only admin can update order status' });
+    }
+
     try {
         const orderId = req.params.id;
         const { status } = req.body;
+
         const updatedOrder = await orderModel.findByIdAndUpdate(orderId, { status }, { new: true });
+
         if (!updatedOrder) {
             return res.status(404).json({ success: false, message: 'Order not found' });
         }
+
         res.json({ success: true, message: 'Order status updated', order: updatedOrder });
     } catch (error) {
         console.error('Error in updateOrderStatus:', error);
@@ -83,6 +91,7 @@ const updateOrderStatus = async (req, res) => {
         });
     }
 };
+
 const getUserOrders = async (req, res) => {
     try {
         const userId = req.userId;
