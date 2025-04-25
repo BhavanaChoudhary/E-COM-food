@@ -10,6 +10,6 @@ orderRouter.get('/', (req, res) => {
 orderRouter.post('/place', authMiddleware, placeOrder);
 orderRouter.get('/orders', getOrdersWithUserInfo);
 orderRouter.get('/user/orders', authMiddleware, getUserOrders);
-orderRouter.patch('/order/:id/status', updateOrderStatus);
+orderRouter.patch('/order/:id/status', authMiddleware, updateOrderStatus);
 
 export default orderRouter;
