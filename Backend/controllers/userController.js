@@ -9,7 +9,7 @@ const createToken = (id) => {
 };
 
 // LOGIN USER
-const ADMIN_EMAIL = "admin@gmail.com";
+const ADMIN_EMAIL = "admin@example.com";
 const ADMIN_PASSWORD = "admin123";
 
 const loginUser = async (req, res) => {
