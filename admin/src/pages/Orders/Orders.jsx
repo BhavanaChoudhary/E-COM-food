@@ -16,7 +16,7 @@ const Orders = () => {
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${url}/api/orders/orders`, {
+      const response = await axios.get(`https://e-com-foodbackend.onrender.com/api/orders/orders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
