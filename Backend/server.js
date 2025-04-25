@@ -13,18 +13,20 @@ const port=process.env.PORT || 4000;
 //middleware
 app.use(express.json())
 const allowedOrigins = [
-  "https://e-com-fooddel.onrender.com",
-  "https://e-com-foodfrontend.onrender.com",
-  "http://localhost:5174"
+   'https://e-com-foodadmin.vercel.app',
+  'https://e-com-fooddelivery.vercel.app'
 ];
 
 app.use(cors({
-  origin: true,
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Ensure all needed HTTP methods are allowed
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],  // Add necessary headers
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
-
 
 
 //api endpoints 
