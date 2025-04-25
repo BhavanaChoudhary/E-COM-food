@@ -8,25 +8,25 @@ import Add from './pages/Add/Add'
 import Login from './pages/Login/Login'
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import StoreContextProvider from './context/StoreContext'
 
 const App = () => {
-  const url="https://e-com-foodbackend.onrender.com"
   return (
-    <div>
+    <StoreContextProvider>
       <ToastContainer/>
       <Navbar/>
       <hr/>
       <div className="app-content">
         <Sidebar/>
         <Routes>
-          <Route path='/' element={<Orders url={url} />} />
-          <Route path='/add' element={<Add url={url}/>}/>
-          <Route path='/list' element={<List url={url}/>}/>
-          <Route path='/orders' element={<Orders url={url}/>}/>
+          <Route path='/' element={<Orders />} />
+          <Route path='/add' element={<Add />} />
+          <Route path='/list' element={<List />} />
+          <Route path='/orders' element={<Orders />} />
           <Route path='/login' element={<Login />}/>
         </Routes>
       </div>
-    </div>
+    </StoreContextProvider>
   )
 }
 

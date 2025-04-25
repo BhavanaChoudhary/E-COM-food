@@ -4,8 +4,10 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FiPackage, FiTruck, FiCheck, FiX, FiUser, FiMail, FiMapPin, FiDollarSign } from 'react-icons/fi';
 import './Orders.css';
+import { StoreContext } from '../../context/StoreContext';
 
-const Orders = ({url}) => {
+const Orders = () => {
+  const { url } = useContext(StoreContext);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -42,6 +44,7 @@ const Orders = ({url}) => {
   useEffect(() => {
     fetchOrders();
   }, []);
+
 
   const updateOrderStatus = async (orderId, status) => {
     try {
