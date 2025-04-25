@@ -9,8 +9,10 @@ const authMiddleware = async (req, res, next) => {
 
 
   const token = authHeader.split(' ')[1];
-  // Hardcoded check only during development or testing
-if (token === 'admin123') {
+const adminToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MDkyOTYwNmYzMzViOWE5N2Y4NzU4NSIsImlhdCI6MTc0NTU3ODg2NSwiZXhwIjoxNzQ2MTgzNjY1fQ.HoVPirhWmOQsJeC9tC_C_1HDrD8N3Yk8xh7aNWwZGMY";
+
+// Hardcoded check only during development or testing
+if (token === adminToken) {
   req.userId = 'admin';
   req.userRole = 'admin';
   return next();
