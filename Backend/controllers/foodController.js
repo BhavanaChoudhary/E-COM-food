@@ -12,8 +12,8 @@ const addFood = async (req, res) => {
         image: image_filename
     });
     try {
-        await food.save();
-        res.json({ success: true, message: "Food Added" });
+        const savedFood = await food.save();
+        res.json({ success: true, message: "Food Added", data: savedFood });
     } catch (error) {
         console.error("Error in addFood:", error);
         res.json({ success: false, message: "Error" });
