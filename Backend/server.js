@@ -5,7 +5,7 @@ import foodRouter from './routes/foodRoute.js';
 import userRouter from "./routes/userRoute.js"
 import cartRouter from './routes/cartRoute.js';
 import orderRouter from './routes/orderRoute.js';
-import adminRouter from './routes/adminRoute.js';
+
 import 'dotenv/config'
 // app config
 const app=express()
@@ -28,7 +28,7 @@ app.use("/api/user",userRouter)
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 app.use("/api/orders", orderRouter);
-app.use("/api/admin", adminRouter);
+
 // db connection
 connectDB();
 app.get("/",(req,res)=>{
