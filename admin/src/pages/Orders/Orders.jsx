@@ -6,7 +6,7 @@ import { FiPackage, FiTruck, FiCheck, FiX, FiUser, FiMail, FiMapPin, FiDollarSig
 import './Orders.css';
 
 const Orders = () => {
-  const baseUrl = "http://localhost:4000";
+  const baseUrl = "https://backend-fooddelivery-l3tm.onrender.com";
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

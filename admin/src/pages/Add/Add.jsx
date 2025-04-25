@@ -5,7 +5,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 
 const Add = () => {
-  const baseUrl = "http://localhost:4000"
+  const baseUrl = "https://backend-fooddelivery-l3tm.onrender.com"
 
   const [image, setImage] = useState(false)
   const [data, setData] = useState({
