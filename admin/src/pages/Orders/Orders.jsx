@@ -1,22 +1,21 @@
-import React, { useEffect, useState,useContext  } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FiPackage, FiTruck, FiCheck, FiX, FiUser, FiMail, FiMapPin, FiDollarSign } from 'react-icons/fi';
 import './Orders.css';
-import { StoreContext } from '../../context/StoreContext';
 
 const Orders = () => {
-  const { url } = useContext(StoreContext);
+  const baseUrl = "http://localhost:4000";
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all');
 
-const fetchOrders = async () => {
+  const fetchOrders = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${url}/api/orders/orders`, {
+      const response = await axios.get(`${baseUrl}/api/orders/orders`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -26,31 +25,29 @@ const fetchOrders = async () => {
       } else {
         setError(response.data.message || 'Failed to fetch orders');
       }
-      } catch (err) {
-        console.error("Fetch orders error:", err);
-        if (err.response && err.response.data && err.response.data.message) {
-          setError(err.response.data.message);
-        } else if (err.message) {
-          setError(err.message);
-        } else {
-          setError('Error fetching orders');
-        }
-      } finally {
-        setLoading(false);
+    } catch (err) {
+      console.error("Fetch orders error:", err);
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else if (err.message) {
+        setError(err.message);
+      } else {
+        setError('Error fetching orders');
       }
-    };
-
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchOrders();
   }, []);
 
-
   const updateOrderStatus = async (orderId, status) => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.patch(
-        `${url}/api/orders/order/${orderId}/status`,
+        `${baseUrl}/api/orders/order/${orderId}/status`,
         { status },
         {
           headers: {

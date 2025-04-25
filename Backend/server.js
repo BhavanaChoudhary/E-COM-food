@@ -12,20 +12,11 @@ const port=process.env.PORT || 4000;
 
 //middleware
 app.use(express.json())
-const allowedOrigins = [
-   'https://e-com-foodadmin.vercel.app',
-  'https://e-com-fooddelivery.vercel.app'
-];
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: true,
   credentials: true
 }));
+
 
 // Removed the line app.use(cors(corsOptions));
 
@@ -34,8 +25,8 @@ app.use("/api/food",foodRouter)
 app.use("/images",express.static("uploads"))
 app.use("/api/user",userRouter)
 app.use("/api/cart", cartRouter);
+app.use("/api/order", orderRouter);
 app.use("/api/orders", orderRouter);
-
 // db connection
 connectDB();
 app.get("/",(req,res)=>{
