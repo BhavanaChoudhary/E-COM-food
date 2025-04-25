@@ -12,7 +12,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://e-com-foodbackend.onrender.com/api/user/login', {
+      const response = await axios.post('https://e-com-food-back.onrender.com/api/user/login', {
         email,
         password,
       });

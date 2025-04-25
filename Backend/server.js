@@ -16,7 +16,6 @@ const allowedOrigins = [
    'https://e-com-foodadmin.vercel.app',
   'https://e-com-fooddelivery.vercel.app'
 ];
-
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -28,7 +27,8 @@ app.use(cors({
   credentials: true
 }));
 
-app.use(cors(corsOptions));
+// Removed the line app.use(cors(corsOptions));
+
 //api endpoints 
 app.use("/api/food",foodRouter)
 app.use("/images",express.static("uploads"))
