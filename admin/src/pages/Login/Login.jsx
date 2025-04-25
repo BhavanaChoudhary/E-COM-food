@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { StoreContext } from '../../context/StoreContext';
 import './Login.css';
 
 const Login = () => {
@@ -8,11 +9,12 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { url } = useContext(StoreContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://e-com-food-back.onrender.com/api/user/login', {
+      const response = await axios.post(`${url}/api/user/login`, {
         email,
         password,
       });

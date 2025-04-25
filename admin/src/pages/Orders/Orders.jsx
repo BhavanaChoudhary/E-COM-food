@@ -13,32 +13,32 @@ const Orders = () => {
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('all');
 
-  const fetchOrders = async () => {
+const fetchOrders = async () => {
     try {
       const token = localStorage.getItem('token');
-const response = await axios.get('https://e-com-foodbackend.onrender.com/api/orders/orders', {
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
-});
+      const response = await axios.get(`${url}/api/orders/orders`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.data.success) {
         setOrders(response.data.orders);
       } else {
         setError(response.data.message || 'Failed to fetch orders');
       }
-    } catch (err) {
-      console.error("Fetch orders error:", err);
-      if (err.response && err.response.data && err.response.data.message) {
-        setError(err.response.data.message);
-      } else if (err.message) {
-        setError(err.message);
-      } else {
-        setError('Error fetching orders');
+      } catch (err) {
+        console.error("Fetch orders error:", err);
+        if (err.response && err.response.data && err.response.data.message) {
+          setError(err.response.data.message);
+        } else if (err.message) {
+          setError(err.message);
+        } else {
+          setError('Error fetching orders');
+        }
+      } finally {
+        setLoading(false);
       }
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const response = await axios.get('https://e-com-foodbackend.onrender.com/api/ord
     try {
       const token = localStorage.getItem('token');
       const response = await axios.patch(
-        'https://e-com-foodbackend.onrender.com/api/orders/order/${orderId}/status`',
+        `${url}/api/orders/order/${orderId}/status`,
         { status },
         {
           headers: {
