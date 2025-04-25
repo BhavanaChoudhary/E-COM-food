@@ -66,10 +66,7 @@ const getOrdersWithUserInfo = async (req, res) => {
 };
 
 const updateOrderStatus = async (req, res) => {
-    // 🔐 Only allow admins to update order status
-    if (req.userRole !== 'admin') {
-        return res.status(403).json({ success: false, message: 'Only admin can update order status' });
-    }
+    // Removed admin authorization check to allow status update without auth
 
     try {
         const orderId = req.params.id;
